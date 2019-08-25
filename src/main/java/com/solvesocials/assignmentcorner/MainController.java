@@ -17,7 +17,7 @@ public class MainController {
 		byte[] decoded = Base64.getDecoder().decode(base64String);
 		String decodedString = new String(decoded); 
 		System.out.println("decoded string is: " + decodedString);
-		String fileName = System.currentTimeMillis() + ".txt"; 
+		String fileName = "/home/hrgprasad/assignmentRequests/" + System.currentTimeMillis() + ".txn"; 
 		PrintWriter out = new PrintWriter(fileName);
 		out.write(decodedString);
 		out.flush(); 
