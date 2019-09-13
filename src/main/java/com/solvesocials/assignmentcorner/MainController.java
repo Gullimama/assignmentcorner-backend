@@ -8,11 +8,13 @@ import java.nio.file.Paths;
 import java.util.Base64;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
+@CrossOrigin
 public class MainController {
 
 	@RequestMapping("/assignmentcorner/persistfile")
@@ -24,7 +26,7 @@ public class MainController {
 		String fileName = "projects.txn";
 		FileWriter fileWriter = new FileWriter(fileName, true);
 		PrintWriter printWriter = new PrintWriter(fileWriter);
-		printWriter.println(decodedString);
+		printWriter.println(decodedString + "\n");
 		printWriter.close();
 	}
 
