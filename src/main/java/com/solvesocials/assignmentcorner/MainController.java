@@ -1,5 +1,6 @@
 package com.solvesocials.assignmentcorner;
 
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -18,7 +19,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class MainController {
 
 	@RequestMapping("/assignmentcorner/persistfile")
-	public void persistFile(@RequestParam(name = "fileData") String base64String) throws IOException {
+	@ResponseBody
+	public String persistFile(@RequestParam(name = "fileData") String base64String) throws IOException {
 		byte[] decoded = Base64.getDecoder().decode(base64String);
 		String decodedString = new String(decoded);
 		System.out.println("decoded string is: " + decodedString);
@@ -28,6 +30,8 @@ public class MainController {
 		PrintWriter printWriter = new PrintWriter(fileWriter);
 		printWriter.println(decodedString + "\n");
 		printWriter.close();
+		
+		return "success"; 
 	}
 
 	@RequestMapping("/assignmentcorner/getProjects")
@@ -36,5 +40,14 @@ public class MainController {
 		byte[] encoded = Files.readAllBytes(Paths.get("projects.txn"));
 		return new String(encoded);
 	}
+	
+	@RequestMapping("/assignmentcorner/clearfile")
+	@ResponseBody
+	public String clearProjects() {
+		String fileName = "projects.txn"; 
+		File file = new File(fileName); 
+		file.delete(); 
+		return "files cleared"; 
+ 	}
 
 }
